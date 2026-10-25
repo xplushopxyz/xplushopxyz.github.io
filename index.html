@@ -17,3 +17,12 @@ fetch('https://api.xplushop.xyz/api/v1/games') // will be your prod URL, using l
     });
   });
 </script>
+<!-- v2 - Connected to XPLUSHOP API -->
+<section style="margin-top:20px">
+<h3>API Status: <span id="api-live">Checking...</span></h3>
+<script>
+fetch('http://localhost:3000/api/v1/games').then(r=>r.json()).then(d=>{
+  document.getElementById('api-live').innerText = d.length + ' games online';
+}).catch(()=>{ document.getElementById('api-live').innerText = 'API offline'; });
+</script>
+</section>
