@@ -1,0 +1,19 @@
+<!-- XPLUSHOP Live API -->
+<div id="live-games" style="padding:20px; background:#111; color:#fff; border-radius:12px; margin:20px;">
+  <h2>🎮 Live Top-Up Status</h2>
+  <p id="api-status">Connecting to XPLUSHOP API...</p>
+  <div id="games-list"></div>
+</div>
+<script>
+fetch('https://api.xplushop.xyz/api/v1/games') // will be your prod URL, using localhost for now
+  .then(r=>r.json()).then(g=>{
+    document.getElementById('api-status').innerText = '✅ API Online - ' + g.length + ' games';
+    document.getElementById('games-list').innerHTML = g.map(x=>`<span style="background:#222;padding:6px 12px;border-radius:20px;margin:4px;display:inline-block">${x.name}</span>`).join('');
+  }).catch(()=>{
+    document.getElementById('api-status').innerText = '⚠️ API offline - running local dev on :3000';
+    // fallback to localhost when testing in Termux
+    fetch('http://localhost:3000/api/v1/games').then(r=>r.json()).then(g=>{
+      document.getElementById('games-list').innerHTML = g.map(x=>x.name).join(', ');
+    });
+  });
+</script>
